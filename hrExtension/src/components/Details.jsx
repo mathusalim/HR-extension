@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 
 const Details = ({ user, saveClick }) => {
@@ -11,24 +12,48 @@ const Details = ({ user, saveClick }) => {
           tags: user.tags,
           url: user.url,
           comment: user.comment,
+          status: "",
         }
-      : { name: "", email: "", phone: "", tags: [], url: "", comment: "" }
+      : {
+          name: "",
+          email: "",
+          phone: "",
+          tags: [],
+          url: "",
+          comment: "",
+          status: "",
+        }
   );
 
-  const [list, setList] = useState(JSON.parse(localStorage.getItem("hrExDb")));
+  const [list, setList] = useState(
+    JSON.parse(localStorage.getItem("hrExDb")) || { data: [] }
+  );
 
-  const handleAdd = () => {
-    const found = list.data.find((x) => x.url === formUser.url);
-    if (found) {
-      setList(
-        list.data.map((x) => (x.url === formUser.url ? { ...formUser } : x))
-      );
-    } else {
-      list.data.push(formUser);
-      setList(list);
+  useEffect(() => {
+    if (formUser.status === "saved") {
+      saveClick();
     }
+    if (formUser.url) {
+      const found = list.data.find((x) => x.url === formUser.url);
+      if (found) {
+        setList(
+          list.data.map((x) => (x.url === formUser.url ? { ...formUser } : x))
+        );
+      } else {
+        list.data.push(formUser);
+        setList(list);
+      }
 
-    localStorage.setItem("hrExDb", JSON.stringify(list));
+      localStorage.setItem("hrExDb", JSON.stringify(list));
+      setFormUser((prev) => ({ ...prev, status: "saved" }));
+    }
+  }, [formUser]);
+
+  const setUrl = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      console.log(tabs[0].url);
+      setFormUser((user) => ({ ...user, url: tabs[0].url.toString() }));
+    });
   };
 
   const handleInputChange = (e) => {
@@ -82,14 +107,15 @@ const Details = ({ user, saveClick }) => {
         <input
           type="textarea"
           name="comment"
+          cols="3"
           value={formUser.comment}
           onChange={handleInputChange}
         />
       </div>
       <button
+        style={{ marginTop: "10px" }}
         onClick={() => {
-          handleAdd();
-          saveClick();
+          setUrl();
         }}
       >
         Save

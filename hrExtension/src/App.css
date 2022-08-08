@@ -1,6 +1,36 @@
 #root {
   max-width: 1280px;
+  width: 80%;
   margin: 0 auto;
   padding: 1rem;
-  text-align: center;
+}
+
+input,
+button {
+  padding: 0.5rem 0.2rem;
+  box-sizing: border-box;
+}
+input {
+  text-indent: 0.5rem;
+}
+
+button {
+  cursor: pointer;
+  min-width: 2.5rem;
+}
+
+th {
+  text-align: left;
+}
+
+.app {
+  width: 100%;
+}
+
+.linkedinLink {
+  color: #c62a88;
+}
+
+.btn-success {
+  color: #03c4a1;
 }

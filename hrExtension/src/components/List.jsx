@@ -1,10 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { Plus, Edit3, Trash2, ExternalLink } from 'react-feather'
 
-const List = ({ addClick }) => {
-  const [list, setList] = useState(
-    JSON.parse(localStorage.getItem("hrExDb")) || { data: [] }
-  );
+const List = ({ addClick, onEdit, onDelete, users }) => {
 
   const handleLinkClick = (link) => {
     console.log(link);
@@ -13,11 +10,11 @@ const List = ({ addClick }) => {
     }
   };
 
-  if (list && list.data && list.data.length > 0) {
+  if (users && users && users.length > 0) {
     return (
       <>
-        <button onClick={addClick}>+</button>
-        <table>
+        <button style={{ marginBottom: '2rem' }} onClick={addClick}><Plus size='1rem' /></button>
+        <table style={{ width: '100%' }}>
           <thead>
             <tr>
               <th>name</th>
@@ -25,22 +22,27 @@ const List = ({ addClick }) => {
               <th>position</th>
               <th>linkedIn</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            {list.data.map((client, index) => (
+            {users.map((client, index) => (
               <tr key={"iHr" + index}>
                 <td>{client.name}</td>
                 <td>{client.email}</td>
                 <td>{client.tags?.toString()}</td>
                 <td
+                  className="linkedinLink"
                   style={{ cursor: "pointer" }}
                   onClick={() => handleLinkClick(client.url)}
                 >
-                  Linkedin
+                  Linkedin<span><ExternalLink size='1rem' /></span>
                 </td>
                 <td>
-                  <button>edit</button>
+                  <button style={{ margin: '0.3rem' }} onClick={() => onEdit(client)}><Edit3 size='1rem' /></button>
+                </td>
+                <td>
+                  <button onClick={() => onDelete(client)}><Trash2 size='1rem' /></button>
                 </td>
               </tr>
             ))}
@@ -51,8 +53,8 @@ const List = ({ addClick }) => {
   }
   return (
     <>
-      <button onClick={addClick}>+</button>
-      <h3 style={{ textAlign: "center" }}>No data pleas add some</h3>
+      <button onClick={addClick}><Plus size='1rem' /></button>
+      <h3 style={{ textAlign: "center" }}>No data</h3>
     </>
   );
 };

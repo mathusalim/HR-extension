@@ -1,13 +1,15 @@
- implement filter for table
- test long list on table.
+fix the filter visual and bug
+test long list on table.
 
- export to json
- import json
+export to json
+import json
 
- create an icon
+add buy me coffe link
 
- deploy
+create an icon
 
- test
+deploy
 
- advertise
+test
+
+advertise

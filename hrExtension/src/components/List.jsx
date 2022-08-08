@@ -1,7 +1,8 @@
 import React from "react";
 import { Plus, Edit3, Trash2, ExternalLink } from 'react-feather'
+import ListFilter from "./ListFilter";
 
-const List = ({ addClick, onEdit, onDelete, users }) => {
+const List = ({ addClick, onEdit, onDelete, users, filterList }) => {
 
   const handleLinkClick = (link) => {
     console.log(link);
@@ -14,6 +15,7 @@ const List = ({ addClick, onEdit, onDelete, users }) => {
     return (
       <>
         <button style={{ marginBottom: '2rem' }} onClick={addClick}><Plus size='1rem' className="btn-success" /></button>
+        <ListFilter filterList={filterList} />
         <table style={{ width: '100%' }}>
           <thead>
             <tr>

@@ -9,10 +9,13 @@ function App() {
   const [list, setList] = useState(
     JSON.parse(localStorage.getItem("hrExDb")) || { data: [] }
   );
+  const [filteredList, setFilteredList] = useState([])
 
   useEffect(() => {
     localStorage.setItem("hrExDb", JSON.stringify(list));
-    setPageState(1);
+    setFilteredList(list.data)
+    if (pageState === 2)
+      setPageState(1);
   }, [list])
 
   useEffect(() => {
@@ -56,9 +59,20 @@ function App() {
     }
   };
 
+  const handleFilter = ({ name, tags }) => {
+    let tempListData = JSON.parse(localStorage.getItem("hrExDb")).data || [];
+    if (name) {
+      tempListData = tempListData.filter((listItem) => listItem.name.toLowerCase().includes(name.toLowerCase()))
+    }
+    if (tags && tags.length > 0) {
+      tempListData = tempListData.filter((listItem) => tags.some(tagName => listItem.tags.toString().toLowerCase().includes(tagName.toLowerCase())))
+    }
+    setFilteredList([...tempListData])
+  }
+
   return (
     <div className="App">
-      {pageState === 1 && <List users={list.data} addClick={() => navigateToPage(2)} onEdit={handleEditClick} onDelete={handleDeleteClick} />}
+      {pageState === 1 && <List users={filteredList} addClick={() => navigateToPage(2)} onEdit={handleEditClick} onDelete={handleDeleteClick} filterList={handleFilter} />}
       {pageState === 2 && <Details user={user} saveClick={handleSaveClick} backClick={handleBackClick} />}
     </div>
   );

@@ -5,27 +5,35 @@ import ListFilterForm from './ListFilterForm'
 import ListTable from './ListTable'
 
 const List = ({ addClick, onEdit, onDelete, users, filterList }) => {
-  return (
-    <>
-      <div style={ListStyles.listContainer()}>
-        <ListFilterForm filterList={filterList} />
-        <div style={ListStyles.listWrapper()}>
-          {users && users.length > 0 && (
-            <ListTable users={users} onEdit={onEdit} onDelete={onDelete} />
-          )}
-          <div style={ListStyles.ListActionButtonWrapper()}>
-            <button
-              style={ListStyles.listActionButton()}
-              onClick={addClick}
-              title="add"
-            >
-              <Plus size="1rem" className="btn-success" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  )
+    return (
+        <>
+            <div style={ListStyles.listContainer()}>
+                <ListFilterForm filterList={filterList} />
+                <div style={ListStyles.listWrapper()}>
+                    <div style={ListStyles.ListActionButtonWrapper()}>
+                        <span style={ListStyles.addDisclaimer()}>
+                            Go to Linkedin Profile you want to save and add new
+                            entry
+                        </span>
+                        <button
+                            style={ListStyles.listActionButton()}
+                            onClick={addClick}
+                            title="add"
+                        >
+                            <Plus size="1rem" className="btn-success" />
+                        </button>
+                    </div>
+                    {users && users.length > 0 && (
+                        <ListTable
+                            users={users}
+                            onEdit={onEdit}
+                            onDelete={onDelete}
+                        />
+                    )}
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default List

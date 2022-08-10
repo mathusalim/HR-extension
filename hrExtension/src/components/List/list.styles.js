@@ -13,6 +13,7 @@ export const ListStyles = {
         display: 'flex',
         justifyContent: 'center',
         boxSizing: 'border-box',
+        overflow: 'auto',
     }),
     FilterWrapper: () => ({
         display: 'flex',
@@ -106,5 +107,19 @@ export const ListStyles = {
         color: '#F806CC',
         fontWeight: 'bold',
         letterSpacing: '0.05rem',
+    }),
+    listIOWrapper: () => ({
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+    }),
+    listIOButton: (isImport = true) => ({
+        display: 'flex',
+        justifyContent: 'space-between',
+        color: isImport ? '#03c4a1' : '#d61c4e',
+    }),
+    listIOLabel: () => ({ fontSize: '1.4em', flex: '1' }),
+    listIOHidden: () => ({
+        display: 'none',
     }),
 }

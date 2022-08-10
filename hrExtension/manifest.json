@@ -1,10 +1,21 @@
 {
     "manifest_version": 3,
     "version": "1.0",
+    "description":"saves active browser tab Url alongside the client input data to localstorage and displays data for lager use",
     "name": "HR extension",
-    "permissions": ["tabs"],
+    "permissions": [
+        "tabs"
+    ],
+    
+    "icons": {
+        "16": "hr16.png",
+        "19": "hr19.png",
+        "38": "hr38.png",
+        "48": "hr48.png",
+        "128": "hr128.png"
+    },
     "action": {
         "default_popup": "index.html",
-        "default_icon": "icon.png"
+        "default_icon": "hr16.png"
     }
 }

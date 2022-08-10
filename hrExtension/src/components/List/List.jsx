@@ -4,11 +4,22 @@ import { ListStyles } from './list.styles'
 import ListFilterForm from './ListFilterForm'
 import ListTable from './ListTable'
 
-const List = ({ addClick, onEdit, onDelete, users, filterList }) => {
+const List = ({
+    addClick,
+    onEdit,
+    onDelete,
+    users,
+    filterList,
+    updateImportedList,
+}) => {
     return (
         <>
             <div style={ListStyles.listContainer()}>
-                <ListFilterForm filterList={filterList} />
+                <ListFilterForm
+                    filterList={filterList}
+                    updateImportedList={updateImportedList}
+                    list={users}
+                />
                 <div style={ListStyles.listWrapper()}>
                     <div style={ListStyles.ListActionButtonWrapper()}>
                         <span style={ListStyles.addDisclaimer()}>
